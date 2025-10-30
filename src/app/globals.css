@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  
+  body {
+    @apply text-body-md bg-neutral-950 text-neutral-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-white;
+  }
+  
+  /* Smooth scrolling for anchor links */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+
+  /* Selection styles */
+  ::selection {
+    @apply bg-primary-900 text-primary-100;
+  }
+}
+
+@layer components {
+  /* Container utilities */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-neutral-900 rounded-xl border border-neutral-800 p-6 transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply hover:shadow-xl hover:border-neutral-700;
+  }
+
+  /* Button base styles */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Input base styles */
+  .input-base {
+    @apply w-full px-4 py-3 border border-neutral-300 rounded-lg text-body-md placeholder:text-neutral-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-colors duration-200;
+  }
+
+  /* Smooth reveal animations */
+  .reveal {
+    @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
+  }
+
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+@layer utilities {
+  /* Text gradient utility */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400;
+  }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-light {
+    backdrop-filter: blur(8px);
+  }
+}
