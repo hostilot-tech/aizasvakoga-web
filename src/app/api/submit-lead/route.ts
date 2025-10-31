@@ -9,14 +9,9 @@ const resend = process.env.RESEND_API_KEY
 
 // Validation schema
 const leadSchema = z.object({
-  name: z.string().min(1).optional(),
   email: z.string().email(),
-  company: z.string().min(1).optional(),
-  website: z.string().url().optional().or(z.literal("")),
   message: z.string().optional(),
-  consent: z.boolean().optional(),
   source: z.string().optional(),
-  preferredTimes: z.string().optional(),
 });
 
 // Simple rate limiting (in-memory, for production use Redis or similar)
@@ -76,12 +71,8 @@ export async function POST(request: Request) {
     const emailContent = `
 Novi lead zahtjev - AI za svakoga
 
-${validatedData.name ? `Ime: ${validatedData.name}` : ""}
 Email: ${validatedData.email}
-${validatedData.company ? `Tvrtka: ${validatedData.company}` : ""}
-${validatedData.website ? `Web: ${validatedData.website}` : ""}
 ${validatedData.message ? `\nPoruka:\n${validatedData.message}` : ""}
-${validatedData.preferredTimes ? `\nPoželjni termini:\n${validatedData.preferredTimes}` : ""}
 
 Izvor: ${validatedData.source || "hero_form"}
 Vrijeme prijave: ${new Date().toLocaleString("hr-HR", { timeZone: "Europe/Zagreb" })}
@@ -90,7 +81,7 @@ Vrijeme prijave: ${new Date().toLocaleString("hr-HR", { timeZone: "Europe/Zagreb
     const emailResult = await resend.emails.send({
       from: emailFrom,
       to: emailTo,
-      subject: `Novi lead: ${validatedData.name || validatedData.email}`,
+      subject: `[aizasvakoga-web] Novi lead: ${validatedData.email}`,
       text: emailContent,
     });
 
