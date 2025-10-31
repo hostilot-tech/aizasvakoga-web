@@ -16,6 +16,7 @@ const leadSchema = z.object({
   message: z.string().optional(),
   consent: z.boolean().optional(),
   source: z.string().optional(),
+  preferredTimes: z.string().optional(),
 });
 
 // Simple rate limiting (in-memory, for production use Redis or similar)
@@ -80,17 +81,20 @@ Email: ${validatedData.email}
 ${validatedData.company ? `Tvrtka: ${validatedData.company}` : ""}
 ${validatedData.website ? `Web: ${validatedData.website}` : ""}
 ${validatedData.message ? `\nPoruka:\n${validatedData.message}` : ""}
+${validatedData.preferredTimes ? `\nPoželjni termini:\n${validatedData.preferredTimes}` : ""}
 
 Izvor: ${validatedData.source || "hero_form"}
-Vrijeme: ${new Date().toLocaleString("hr-HR", { timeZone: "Europe/Zagreb" })}
+Vrijeme prijave: ${new Date().toLocaleString("hr-HR", { timeZone: "Europe/Zagreb" })}
     `.trim();
 
-    await resend.emails.send({
+    const emailResult = await resend.emails.send({
       from: emailFrom,
       to: emailTo,
       subject: `Novi lead: ${validatedData.name || validatedData.email}`,
       text: emailContent,
     });
+
+    console.log("Email sent successfully:", emailResult);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -9,12 +9,15 @@ import { trackEvent } from "@/components/analytics/GoogleAnalytics";
 import Link from "next/link";
 
 export default function Hero() {
+  const [showModal, setShowModal] = useState(false);
+  const [initialData, setInitialData] = useState({ name: "", email: "" });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
     website: "",
     message: "",
+    preferredTimes: "",
     consent: false,
   });
   
@@ -27,24 +30,36 @@ export default function Hero() {
     return re.test(email);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInitialSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Track form view
-    trackEvent("view_form", { form_location: "hero" });
-    
-    // Validation
     const newErrors: Record<string, string> = {};
     
-    if (!formData.name.trim()) {
+    if (!initialData.name.trim()) {
       newErrors.name = "Ime i prezime su obavezni";
     }
     
-    if (!formData.email.trim()) {
+    if (!initialData.email.trim()) {
       newErrors.email = "Email je obavezan";
-    } else if (!validateEmail(formData.email)) {
+    } else if (!validateEmail(initialData.email)) {
       newErrors.email = "Unesite valjanu email adresu";
     }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setFormData({ ...formData, name: initialData.name, email: initialData.email });
+    setShowModal(true);
+    setErrors({});
+    trackEvent("view_form", { form_location: "hero_modal" });
+  };
+
+  const handleFullSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const newErrors: Record<string, string> = {};
     
     if (!formData.company.trim()) {
       newErrors.company = "Naziv tvrtke je obavezan";
@@ -89,8 +104,11 @@ export default function Hero() {
         company: "",
         website: "",
         message: "",
+        preferredTimes: "",
         consent: false,
       });
+      setInitialData({ name: "", email: "" });
+      setShowModal(false);
     } catch (error) {
       setErrors({ submit: "Došlo je do greške. Molimo pokušajte ponovno." });
     } finally {
@@ -101,24 +119,23 @@ export default function Hero() {
   const handleCTAClick = () => {
     trackEvent("cta_click", { 
       cta_location: "hero",
-      cta_text: "Zakažite besplatni uvodni online poziv"
+      cta_type: "primary"
     });
   };
 
   return (
-    <section id="hero" className="relative bg-neutral-950 min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background decoration */}
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-neutral-950">
+      {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 -right-32 w-[600px] h-[600px] bg-primary-900/20 rounded-full opacity-40 blur-3xl"></div>
-        <div className="absolute -bottom-32 -left-32 w-[600px] h-[600px] bg-primary-800/20 rounded-full opacity-40 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary-900/20 to-transparent rounded-full opacity-30 blur-3xl"></div>
+        <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container-custom relative z-10 py-16 md:py-24">
-        <div className="max-w-6xl mx-auto">
-          {/* Heading */}
-          <div className="text-center mb-12 lg:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-900/30 text-primary-300 rounded-full text-body-sm font-medium mb-6 border border-primary-800/50">
+      <div className="container-custom relative z-10">
+        <div className="section-padding space-y-12">
+          {/* Hero content */}
+          <div className="text-center space-y-6 max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600/10 border border-primary-600/20 rounded-full text-primary-400 text-body-sm font-medium">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
@@ -132,23 +149,110 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Form or Success State */}
+          {/* Simple Form */}
           <div id="kontakt-forma"></div>
           {!isSuccess ? (
-            <div className="bg-neutral-900 rounded-2xl shadow-2xl p-6 md:p-8 lg:p-10 max-w-4xl mx-auto border border-neutral-800">
-              <div className="mb-6">
+            <div className="bg-neutral-900 rounded-2xl shadow-2xl p-6 md:p-8 max-w-2xl mx-auto border border-neutral-800">
+              <div className="mb-6 text-center">
                 <h2 className="text-heading-md font-semibold text-white mb-2">
                   Zakažite besplatni uvodni online poziv
                 </h2>
-                <p className="text-body-sm text-neutral-400 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Poziv je online. Ne primamo direktne telefonske pozive.
+                <p className="text-body-sm text-neutral-400">
+                  Unesite osnovne podatke i nastavite s detaljima
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleInitialSubmit} className="space-y-5">
+                <Input
+                  id="initial-name"
+                  label="Ime i prezime"
+                  type="text"
+                  required
+                  value={initialData.name}
+                  onChange={(e) => setInitialData({ ...initialData, name: e.target.value })}
+                  error={errors.name}
+                  placeholder="Ana Horvat"
+                />
+                
+                <Input
+                  id="initial-email"
+                  label="Poslovni email"
+                  type="email"
+                  required
+                  value={initialData.email}
+                  onChange={(e) => setInitialData({ ...initialData, email: e.target.value })}
+                  error={errors.email}
+                  placeholder="ana@tvrtka.hr"
+                />
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  onClick={handleCTAClick}
+                >
+                  Nastavi →
+                </Button>
+              </form>
+
+              {/* Trust indicators */}
+              <div className="mt-8 pt-6 border-t border-neutral-800">
+                <div className="grid md:grid-cols-2 gap-4 text-body-sm text-neutral-400">
+                  <div className="flex items-start gap-2">
+                    <span className="text-primary-600 mt-0.5">✓</span>
+                    <span>Odgovaramo u roku 24h. NDA po potrebi.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-primary-600 mt-0.5">✓</span>
+                    <span>Metodologija 100% prilagođena vašoj organizaciji.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-neutral-900 rounded-2xl p-8 text-center border border-neutral-800 max-w-2xl mx-auto">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-heading-lg font-semibold text-white mb-4">
+                Hvala! Vaš zahtjev je uspješno poslan.
+              </h3>
+              <p className="text-body-lg text-neutral-300 mb-8">
+                Javit ćemo vam se u roku 24 sata.
+              </p>
+              
+              <Button
+                variant="outline"
+                onClick={() => setIsSuccess(false)}
+              >
+                Zatvori
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* Modal for full form */}
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80" onClick={() => setShowModal(false)}>
+            <div className="bg-neutral-900 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-neutral-800" onClick={(e) => e.stopPropagation()}>
+              <div className="sticky top-0 bg-neutral-900 border-b border-neutral-800 p-6 flex items-center justify-between">
+                <h2 className="text-heading-md font-semibold text-white">
+                  Dodatne informacije
+                </h2>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-neutral-400 hover:text-white transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <form onSubmit={handleFullSubmit} className="p-6 space-y-5">
                 <div className="grid md:grid-cols-2 gap-5">
                   <Input
                     id="name"
@@ -157,8 +261,8 @@ export default function Hero() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    error={errors.name}
                     placeholder="Ana Horvat"
+                    disabled
                   />
                   
                   <Input
@@ -168,9 +272,8 @@ export default function Hero() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    error={errors.email}
                     placeholder="ana@tvrtka.hr"
-                    helperText="Preferirano poslovni email"
+                    disabled
                   />
                 </div>
 
@@ -206,6 +309,16 @@ export default function Hero() {
                   rows={4}
                 />
 
+                <Textarea
+                  id="preferredTimes"
+                  label="Termin(i) koji mi odgovaraju"
+                  value={formData.preferredTimes}
+                  onChange={(e) => setFormData({ ...formData, preferredTimes: e.target.value })}
+                  placeholder="Npr: Ponedjeljak 10:00, Srijeda 14:00, Petak 11:00"
+                  helperText="Predlažemo: Pon-Pet, 9:00-16:00, trajanje 1h"
+                  rows={3}
+                />
+
                 <Checkbox
                   id="consent"
                   checked={formData.consent}
@@ -214,7 +327,7 @@ export default function Hero() {
                   label={
                     <>
                       Prihvaćam{" "}
-                      <Link href="/privatnost" className="text-primary-600 hover:text-primary-700 underline">
+                      <Link href="/privatnost" className="text-primary-400 hover:text-primary-300 underline">
                         Politiku privatnosti
                       </Link>
                     </>
@@ -222,72 +335,35 @@ export default function Hero() {
                 />
 
                 {errors.submit && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-body-sm text-red-600">{errors.submit}</p>
+                  <div className="p-4 bg-red-900/20 border border-red-800/50 rounded-lg">
+                    <p className="text-body-sm text-red-400">{errors.submit}</p>
                   </div>
                 )}
 
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="lg"
-                  fullWidth
-                  disabled={isSubmitting}
-                  onClick={handleCTAClick}
-                >
-                  {isSubmitting ? "Šaljem..." : "Zakažite besplatni uvodni online poziv"}
-                </Button>
+                <div className="flex gap-3">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="lg"
+                    fullWidth
+                    onClick={() => setShowModal(false)}
+                  >
+                    Natrag
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    fullWidth
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Šaljem..." : "Pošalji zahtjev"}
+                  </Button>
+                </div>
               </form>
-
-              {/* Trust indicators */}
-              <div className="mt-8 pt-6 border-t border-neutral-200">
-                <div className="grid md:grid-cols-2 gap-4 text-body-sm text-neutral-600">
-                  <div className="flex items-start gap-2">
-                    <span className="text-primary-600 mt-0.5">✓</span>
-                    <span>Odgovaramo u roku 24h. NDA po potrebi.</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-primary-600 mt-0.5">✓</span>
-                    <span>Metodologija 100% prilagođena vašoj organizaciji.</span>
-                  </div>
-                </div>
-              </div>
             </div>
-          ) : (
-            <div className="bg-white rounded-2xl shadow-strong p-8 md:p-12 max-w-3xl mx-auto text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-heading-lg font-semibold text-neutral-900 mb-4">
-                Hvala! Vaš zahtjev je uspješno poslan.
-              </h3>
-              <p className="text-body-lg text-neutral-600 mb-8">
-                Javit ćemo vam se u roku 24 sata. U međuvremenu, odaberite termin za poziv:
-              </p>
-              
-              {/* Google Calendar Embed */}
-              <div className="bg-neutral-50 rounded-xl p-6 mb-6">
-                <p className="text-body-sm text-neutral-600 mb-4">
-                  Dostupni termini: pon–pet, 09:00–16:00 (CET), samo jednosatni slotovi
-                </p>
-                <div className="aspect-video bg-white rounded-lg border border-neutral-200 flex items-center justify-center">
-                  <p className="text-body-sm text-neutral-500">
-                    [Google Calendar embed će biti ovdje - konfigurirajte GCAL_CALENDAR_ID]
-                  </p>
-                </div>
-              </div>
-              
-              <Button
-                variant="outline"
-                onClick={() => setIsSuccess(false)}
-              >
-                Zatvori
-              </Button>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
