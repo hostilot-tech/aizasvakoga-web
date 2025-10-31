@@ -3,7 +3,7 @@ import { PROCESS_STEPS } from "@/lib/constants";
 
 export default function Process() {
   return (
-    <section id="proces" className="section-padding bg-neutral-900">
+    <section id="proces" aria-label="Naš proces - koraci do uspješne AI implementacije" className="section-padding bg-neutral-900">
       <div className="container-custom">
         <SectionHeading
           title="Proces — naglasak na brze rezultate tjedno"

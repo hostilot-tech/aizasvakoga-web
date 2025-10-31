@@ -2,8 +2,21 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Politika privatnosti | AI za svakoga",
-  description: "Politika privatnosti za AI za svakoga - kako prikupljamo, koristimo i štitimo vaše podatke.",
+  title: "Politika privatnosti",
+  description: "Politika privatnosti za AI za svakoga - kako prikupljamo, koristimo i štitimo vaše podatke u skladu s GDPR propisima.",
+  alternates: {
+    canonical: "/privatnost",
+  },
+  openGraph: {
+    title: "Politika privatnosti | AI za svakoga",
+    description: "Politika privatnosti - kako prikupljamo, koristimo i štitimo vaše podatke.",
+    url: "https://aizasvakoga.com/privatnost",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function PrivatnostPage() {

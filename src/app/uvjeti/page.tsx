@@ -2,8 +2,21 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Uvjeti korištenja | AI za svakoga",
-  description: "Uvjeti korištenja web stranice AI za svakoga.",
+  title: "Uvjeti korištenja",
+  description: "Uvjeti korištenja web stranice AI za svakoga - pravila i odgovornosti korištenja naših usluga.",
+  alternates: {
+    canonical: "/uvjeti",
+  },
+  openGraph: {
+    title: "Uvjeti korištenja | AI za svakoga",
+    description: "Uvjeti korištenja web stranice AI za svakoga.",
+    url: "https://aizasvakoga.com/uvjeti",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function UvjetiPage() {

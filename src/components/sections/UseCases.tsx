@@ -4,7 +4,7 @@ import { USE_CASES } from "@/lib/constants";
 
 export default function UseCases() {
   return (
-    <section className="section-padding bg-neutral-950">
+    <section aria-label="Primjeri primjene AI u različitim poslovnim funkcijama" className="section-padding bg-neutral-950">
       <div className="container-custom">
         <SectionHeading
           title="Primjeri Use-caseova po funkcijama"

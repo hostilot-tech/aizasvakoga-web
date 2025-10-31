@@ -9,17 +9,48 @@ import FAQ from "@/components/sections/FAQ";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "AI za svakoga | Edukacija i consulting za uspješnu AI adopciju",
+    "description": "Ne nudimo samo jednokratnu edukaciju. Postajemo vaš AI partner — od strategije do implementacije i rasta.",
+    "url": "https://aizasvakoga.com",
+    "inLanguage": "hr",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "AI za svakoga",
+      "url": "https://aizasvakoga.com"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Početna",
+          "item": "https://aizasvakoga.com"
+        }
+      ]
+    }
+  };
+
   return (
-    <main>
-      <Hero />
-      <WhyNow />
-      <Offering />
-      <Process />
-      <UseCases />
-      <Compliance />
-      <SecondaryCTA />
-      <FAQ />
-      <Footer />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
+      <main>
+        <Hero />
+        <WhyNow />
+        <Offering />
+        <Process />
+        <UseCases />
+        <Compliance />
+        <SecondaryCTA />
+        <FAQ />
+        <Footer />
+      </main>
+    </>
   );
 }

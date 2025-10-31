@@ -11,8 +11,25 @@ export default function FAQ() {
     setOpenId(openId === id ? null : id);
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+
   return (
-    <section id="faq" className="section-padding bg-neutral-900">
+    <section id="faq" aria-label="Često postavljana pitanja o AI edukaciji i consultingu" className="section-padding bg-neutral-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="container-custom">
         <SectionHeading
           title="Često postavljana pitanja"

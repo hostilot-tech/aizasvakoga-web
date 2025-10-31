@@ -5,7 +5,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-neutral-300 py-12">
+    <footer aria-label="Podnožje stranice s informacijama o tvrtki" className="bg-neutral-900 text-neutral-300 py-12">
       <div className="container-custom">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Company Info */}

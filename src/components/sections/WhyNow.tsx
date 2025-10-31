@@ -6,7 +6,7 @@ import { RESEARCH_REFERENCES, BENEFITS } from "@/lib/constants";
 
 export default function WhyNow() {
   return (
-    <section className="section-padding bg-neutral-900">
+    <section aria-label="Zašto sada - istraživanja i koristi AI adopcije" className="section-padding bg-neutral-900">
       <div className="container-custom">
         <SectionHeading
           title="Zašto sada?"

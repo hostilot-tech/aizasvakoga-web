@@ -3,8 +3,17 @@ import { Metadata } from "next";
 import SecondaryCTA from "@/components/sections/SecondaryCTA";
 
 export const metadata: Metadata = {
-  title: "Kontakt | AI za svakoga",
-  description: "Kontaktirajte nas za besplatni uvodni online poziv.",
+  title: "Kontakt",
+  description: "Kontaktirajte nas za besplatni uvodni online poziv. Zakažite sastanak s našim AI stručnjacima i saznajte kako AI može transformirati vaše poslovanje.",
+  alternates: {
+    canonical: "/kontakt",
+  },
+  openGraph: {
+    title: "Kontakt | AI za svakoga",
+    description: "Kontaktirajte nas za besplatni uvodni online poziv.",
+    url: "https://aizasvakoga.com/kontakt",
+    type: "website",
+  },
 };
 
 export default function KontaktPage() {
