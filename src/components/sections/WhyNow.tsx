@@ -6,7 +6,7 @@ import { RESEARCH_REFERENCES, BENEFITS } from "@/lib/constants";
 
 export default function WhyNow() {
   return (
-    <section className="section-padding bg-neutral-950">
+    <section className="section-padding bg-neutral-900">
       <div className="container-custom">
         <SectionHeading
           title="Zašto sada?"
@@ -56,7 +56,7 @@ export default function WhyNow() {
         {/* Benefits */}
         <div>
           <h3 className="text-heading-md font-semibold text-white text-center mb-8">
-            Tri ključne koristi
+            Tri ključne koristi za vašu tvrtku
           </h3>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {BENEFITS.map((benefit) => (

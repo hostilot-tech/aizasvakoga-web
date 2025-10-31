@@ -2,7 +2,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function Compliance() {
   return (
-    <section className="section-padding bg-neutral-950">
+    <section className="section-padding bg-neutral-900">
       <div className="container-custom">
         <SectionHeading
           title="Sigurnost i usklađenost — jasno i načelno"

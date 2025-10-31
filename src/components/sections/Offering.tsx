@@ -4,7 +4,7 @@ import { OFFERING_ELEMENTS } from "@/lib/constants";
 
 export default function Offering() {
   return (
-    <section id="usluge" className="section-padding bg-neutral-900">
+    <section id="usluge" className="section-padding bg-neutral-950">
       <div className="container-custom">
         <SectionHeading
           title="Što dobivate — cijeli paket, ne samo radionica"

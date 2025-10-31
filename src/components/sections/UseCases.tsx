@@ -4,10 +4,10 @@ import { USE_CASES } from "@/lib/constants";
 
 export default function UseCases() {
   return (
-    <section className="section-padding bg-neutral-900">
+    <section className="section-padding bg-neutral-950">
       <div className="container-custom">
         <SectionHeading
-          title="Use-caseovi po funkcijama"
+          title="Primjeri Use-caseova po funkcijama"
           subtitle="Generički, ali konkretni primjeri kako AI može pomoći u različitim dijelovima organizacije."
           centered
           className="mb-16"
