@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: "Postajemo vaš AI partner — od strategije do implementacije i rasta. Iskoristite AI za veću učinkovitost, bržu inovaciju i oštriju konkurentsku prednost.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "AI za svakoga - Edukacija i consulting",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI za svakoga | Edukacija i consulting za uspješnu AI adopciju",
     description: "Postajemo vaš AI partner — od strategije do implementacije i rasta.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
