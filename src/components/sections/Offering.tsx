@@ -11,6 +11,7 @@ export default function Offering() {
           subtitle="Nismo tehnička platforma. Nudimo edukaciju i consulting za AI adopciju. Pomažemo razumjeti sigurnost i usklađenost na načelnoj i praktičnoj razini, kako biste izbjegli skupe pogreške."
           centered
           className="mb-16"
+          id="sto-dobivate"
         />
 
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">

@@ -3,19 +3,21 @@ interface SectionHeadingProps {
   subtitle?: string;
   centered?: boolean;
   className?: string;
+  id?: string;
 }
 
 export default function SectionHeading({ 
   title, 
   subtitle, 
   centered = false,
-  className = "" 
+  className = "",
+  id
 }: SectionHeadingProps) {
   const alignClass = centered ? "text-center mx-auto" : "";
   
   return (
     <div className={`max-w-3xl ${alignClass} ${className}`}>
-      <h2 className="text-heading-xl md:text-display-sm font-bold text-white mb-4">
+      <h2 id={id} className="text-heading-xl md:text-display-sm font-bold text-white mb-4">
         {title}
       </h2>
       {subtitle && (
