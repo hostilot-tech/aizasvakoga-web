@@ -38,12 +38,6 @@ export default function Process() {
               </div>
             ))}
           </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-body-md font-medium text-neutral-300 bg-neutral-900 border border-neutral-800 rounded-xl px-6 py-4 inline-block">
-              Nema 'konfekcije'. Sve prilagođavamo vašim ciljevima i zrelosti.
-            </p>
-          </div>
         </div>
       </div>
     </section>

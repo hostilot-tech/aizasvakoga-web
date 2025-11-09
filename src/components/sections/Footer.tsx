@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Legal Links */}
           <div>
             <h3 className="text-white font-semibold text-heading-sm mb-4">
-              Pravno
+              Dokumenti
             </h3>
             <ul className="space-y-2 text-body-sm">
               <li>
@@ -50,11 +50,6 @@ export default function Footer() {
                   Uvjeti korištenja
                 </Link>
               </li>
-              <li>
-                <a href="#kontakt-forma" className="hover:text-white transition-colors">
-                  Kontakt
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -64,7 +59,7 @@ export default function Footer() {
               Kontakt
             </h3>
             <p className="text-body-sm">
-              Koristite kontakt formu na stranici ili zakažite besplatni uvodni online poziv.
+              Koristite <a href="#kontakt-forma" className="text-primary-400 hover:text-primary-300 inline-flex items-center gap-1 mt-2">kontakt formu</a> na stranici ili zakažite besplatni uvodni online poziv.
             </p>
           </div>
         </div>

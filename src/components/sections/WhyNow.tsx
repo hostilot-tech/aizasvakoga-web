@@ -10,7 +10,7 @@ export default function WhyNow() {
       <div className="container-custom">
         <SectionHeading
           title="Zašto sada?"
-          subtitle="AI napreduje iz tjedna u tjedan, ali primjena u praksi često zaostaje. Mi zatvaramo taj jaz — strukturirano, sigurno i s tjednim rezultatima."
+          subtitle="AI napreduje iz tjedna u tjedan, ali primjena u praksi često zaostaje. Mi zatvaramo taj jaz — s vama u glavnoj ulozi, s tjednim rezultatima."
           centered
           className="mb-16"
         />

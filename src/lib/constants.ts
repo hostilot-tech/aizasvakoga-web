@@ -56,7 +56,7 @@ export const BENEFITS = [
     id: 3,
     icon: "target",
     title: "Ispred konkurencije",
-    description: "Fokus na inicijative koje najviše utječu na prihod i zadovoljstvo kupaca. Mjerljivi rezultati."
+    description: "Primjena AI tehnologija danas je ključna prednost u odnosu na konkurenciju. Ne dozvolite da zaostanete!"
   }
 ];
 

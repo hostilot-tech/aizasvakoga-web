@@ -6,7 +6,7 @@ export default function Compliance() {
       <div className="container-custom">
         <SectionHeading
           title="Sigurnost i usklađenost — jasno i načelno"
-          subtitle="Nismo tehnička platforma. Edukacijom i consultingom pomažemo vam postaviti zdrave temelje sigurnosti i usklađenosti — kako biste izbjegli skupe pogreške."
+          subtitle="Edukacijom i consultingom pomažemo vam postaviti zdrave temelje sigurnosti i usklađenosti — kako biste izbjegli skupe pogreške."
           centered
           className="mb-12"
         />
@@ -41,7 +41,7 @@ export default function Compliance() {
                     Jasno definirani procesi i governance
                   </h3>
                   <p className="text-body-md text-neutral-300">
-                    Pomažemo vam uspostaviti minimalni, ali učinkoviti governance model — bez birokratije, ali s jasnim odgovornostima i procedurama.
+                    Pomažemo vam uspostaviti minimalni, ali učinkoviti governance model — bez birokracije, ali s jasnim odgovornostima i procedurama.
                   </p>
                 </div>
               </li>
@@ -57,7 +57,7 @@ export default function Compliance() {
                     NDA i povjerljivost
                   </h3>
                   <p className="text-body-md text-neutral-300">
-                    Po potrebi radimo uz NDA. Ne koristimo vaše podatke za treniranje javnih modela. Vaša povjerljivost je prioritet.
+                    Po potrebi radimo uz NDA. Ne koristimo vaše podatke za svoje potrebe, niti ih razmjenjujemo sa trećim stranama. Vaše povjerenje naš je prioritet.
                   </p>
                 </div>
               </li>
